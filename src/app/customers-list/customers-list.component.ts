@@ -35,7 +35,6 @@ export class CustomersListComponent implements OnInit {
   }
 
   onSubmitSearch() {
-    console.log(this.searchCustomer)
     this.loadingService.show();
     this.customerService.findAllCustomers(this.searchCustomer).subscribe((res) => {
       this.customers = res;

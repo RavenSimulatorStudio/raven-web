@@ -11,6 +11,7 @@ import { CustomerService } from './service/customer.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     PendingPaymentComponent,
     PaidPaymentComponent,
-    LoadingComponent
+    LoadingComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
