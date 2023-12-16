@@ -37,8 +37,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "baseHref": "deploy-ravenWeb"
+            "scripts": []
           },
           "configurations": {
             "production": {
