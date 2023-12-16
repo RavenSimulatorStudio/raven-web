@@ -1,0 +1,73 @@
+<h1 class="h3 mb-2 text-gray-800">Customers</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Search</h6>
+    </div>
+    <div class="card-body">
+        <form (submit)="onSubmitSearch()">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="nickname">Workshop</label>
+                        <div class="input-group">
+                            <select class="form-control" id="workshop" name="workshop" [(ngModel)]="searchCustomer.workshop">
+                                <option value="">Select Workshop</option>
+                                <option *ngFor="let workshop of workshops" [value]="workshop">{{ workshop }}</option>
+                              </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="nickname">Nickname</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="searchCustomer.nickname">
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow mb-4" *ngIf="customers">
+    <div class="card-header py-3">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Timestamp</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Nickname</th>
+                        <th scope="col">Mobile No.</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Slip</th>
+                        <th scope="col">Open email</th>
+                        <th scope="col">Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of customers">
+                        <td scope="row">{{ item.timestamp }}</td>
+                        <td scope="row">{{ item.email_confirmed }}</td>
+                        <td scope="row">{{ item.nickname }}</td>
+                        <td scope="row">{{ item.telephone_no }}</td>
+                        <td scope="row">{{ item.education }}</td>
+                        <td scope="row">
+                            <a href="{{ item.statement_evidence }}" target="_blank">Link</a>
+                        </td>
+                        <td scope="row">{{ item.open_email }}</td>
+                        <td scope="row">{{ item.remark }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
