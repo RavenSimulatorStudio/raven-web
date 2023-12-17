@@ -33,6 +33,7 @@ export class LoginComponent {
       if (res && res.success.statusCode === 200) {
         let userToken:Token = res;
         this.userService.saveToken(userToken.token);
+  
         this.router.navigate(['/home'])
       } else {
         Swal.fire({

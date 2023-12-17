@@ -45,20 +45,19 @@
                     <tr>
                         <th scope="col">Timestamp</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Workshop</th>
                         <th scope="col">Nickname</th>
                         <th scope="col">Mobile No.</th>
                         <th scope="col">Class</th>
                         <th scope="col">Slip</th>
                         <th scope="col">Open email</th>
                         <th scope="col">Note</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of customers">
                         <td scope="row">{{ item.timestamp }}</td>
                         <td scope="row">{{ item.email_confirmed }}</td>
-                        <td scope="row">{{ item.workshop_name }}</td>
                         <td scope="row">{{ item.nickname }}</td>
                         <td scope="row">{{ item.telephone_no }}</td>
                         <td scope="row">{{ item.education }}</td>
@@ -67,6 +66,9 @@
                         </td>
                         <td scope="row">{{ item.open_email }}</td>
                         <td scope="row">{{ item.remark }}</td>
+                        <td scope="row">
+                            <button class="btn btn-danger" (click)="onSubmitCancel(item.id)">Cancel</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

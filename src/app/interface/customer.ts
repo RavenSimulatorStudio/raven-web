@@ -21,4 +21,12 @@ export interface Customer {
 export interface SearchCustomer {
     workshop: string;
     nickname: string;
+    status: string;
+}
+
+
+export interface ApproveStatus {
+    id: string;
+    approval: string;
+    status: string;
 }
