@@ -1,28 +1,8 @@
 <h1 class="h3 mb-2 text-gray-800">Pending approve</h1>
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Approve</h6>
-    </div>
     <div class="card-body">
         <form (submit)="onSubmitApprove()">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="nickname">Approval</label>
-                        <div class="input-group">
-                            <select class="form-control" id="workshop" name="workshop" [(ngModel)]="approveStatus.approval">
-                                <option value="">Select approval</option>
-                                <option value="Petch" [selected]="approveStatus.approval === 'Petch'">Petch</option>
-                                <option value="Pae" [selected]="approveStatus.approval === 'Pae'">Pae</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col"></div>
-            </div>
             <div class="row">
                 <div class="col">
                     <button type="submit" class="btn btn-primary">Approve</button>

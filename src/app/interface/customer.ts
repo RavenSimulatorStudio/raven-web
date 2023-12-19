@@ -16,6 +16,7 @@ export interface Customer {
     approval: string;
     order_no: string;
     id: string;
+    status: string;
 }
 
 export interface SearchCustomer {
@@ -29,4 +30,8 @@ export interface ApproveStatus {
     id: string;
     approval: string;
     status: string;
+}
+
+export interface ApprovedStatus {
+    uuid: string;
 }

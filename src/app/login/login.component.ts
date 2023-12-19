@@ -30,11 +30,15 @@ export class LoginComponent {
     this.loadingService.show();
     this.userService.login(this.login.username, this.login.password).subscribe((res) => {
       this.loadingService.hide();
-      if (res && res.success.statusCode === 200) {
-        let userToken:Token = res;
-        this.userService.saveToken(userToken.token);
+      if (res && res.status === 200) {
+        let userToken: Token = { 
+          token: res.data.token, 
+          nickname: res.data.nickname
+        };
+        
+        this.userService.saveToken(userToken.token, userToken.nickname);
   
-        this.router.navigate(['/home'])
+        this.router.navigate(['/home/customers/pending'])
       } else {
         Swal.fire({
           icon: 'error',

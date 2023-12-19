@@ -22,7 +22,7 @@ export class CustomersListComponent implements OnInit {
   workshops!: string[];
   approveStatus: ApproveStatus = {
     id: '',
-    approval: 'test',
+    approval: localStorage.getItem('nickname') || '',
     status: 'cancel'
   }
 
@@ -36,7 +36,7 @@ export class CustomersListComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.show();
     this.listService.getWorkshops().subscribe((res) => {
-      this.workshops = res;
+      this.workshops = res.data.workshops;
       this.loadingService.hide();
     });
   }
@@ -44,7 +44,7 @@ export class CustomersListComponent implements OnInit {
   onSubmitSearch() {
     this.loadingService.show();
     this.customerService.findAllCustomers(this.searchCustomer).subscribe((res) => {
-      this.customers = res;
+      this.customers = res.data;
       this.customers.forEach(customer => {
         customer.timestamp = this.datetimeService.formatDateTime(customer.timestamp);
       });

@@ -17,11 +17,11 @@ export class PendingPaymentComponent {
     nickname: '',
     status: 'pending'
   }
-  customers!: Customer[];
+  customers: Customer[] = [];
   selectedRow: any;
   approveStatus: ApproveStatus = {
     id: '',
-    approval: '',
+    approval: localStorage.getItem('nickname') || '',
     status: 'approved'
   }
 
@@ -35,10 +35,18 @@ export class PendingPaymentComponent {
   ngOnInit(): void {
     this.loadingService.show();
     this.customerService.findAllCustomers(this.searchCustomer).subscribe((res) => {
-      this.customers = res;
-      this.customers.forEach(customer => {
-        customer.timestamp = this.datetimeService.formatDateTime(customer.timestamp);
-      });
+      if (res.status === 200) {
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          this.customers = res.data;
+          this.customers.forEach(customer => {
+            customer.timestamp = this.datetimeService.formatDateTime(customer.timestamp);
+          });
+        } else {
+          this.customers = [];
+        }
+      } else {
+        console.error('Failed to fetch customers. Status:', res.status);
+      }
 
       this.loadingService.hide();
     })

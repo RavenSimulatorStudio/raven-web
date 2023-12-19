@@ -5,5 +5,6 @@ export interface Login {
 
 export interface Token {
     token: string;
+    nickname: string;
     id?: string;
 }
