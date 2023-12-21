@@ -10,9 +10,7 @@ export interface Customer {
     telephone_no: string;
     source: string;
     remark: string;
-    confirm_text: string;
     open_email: boolean;
-    approve: boolean;
     approval: string;
     order_no: string;
     id: string;
@@ -32,6 +30,7 @@ export interface ApproveStatus {
     status: string;
 }
 
-export interface ApprovedStatus {
-    uuid: string;
+export interface UpdateRemarks {
+    id: string;
+    remark: string;
 }

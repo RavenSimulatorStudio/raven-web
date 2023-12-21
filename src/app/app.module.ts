@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { HomeComponent } from './home/home.component';
 import { PendingPaymentComponent } from './pending-payment/pending-payment.component';
-import { PaidPaymentComponent } from './paid-payment/paid-payment.component';
 import { CustomerService } from './service/customer.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSortModule} from '@angular/material/sort';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,15 +21,17 @@ import { LoginComponent } from './login/login.component';
     CustomersListComponent,
     HomeComponent,
     PendingPaymentComponent,
-    PaidPaymentComponent,
     LoadingComponent,
-    LoginComponent
+    LoginComponent,
+    CustomerDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSortModule
   ],
   providers: [
     CustomerService

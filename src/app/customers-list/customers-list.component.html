@@ -52,10 +52,10 @@
 <div class="card shadow mb-4" *ngIf="customers">
     <div class="card-header py-3">
         <div class="table-responsive">
-            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0" matSort (matSortChange)="sortData($event)">
                 <thead>
                     <tr>
-                        <th scope="col">Timestamp</th>
+                        <th scope="col" mat-sort-header="timestamp">Timestamp</th>
                         <th scope="col">Email</th>
                         <th scope="col">Nickname</th>
                         <th scope="col">Mobile No.</th>
@@ -67,19 +67,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of customers">
+                    <tr *ngFor="let item of sortedData">
                         <td scope="row">{{ item.timestamp }}</td>
                         <td scope="row">{{ item.email_confirmed }}</td>
                         <td scope="row">{{ item.nickname }}</td>
                         <td scope="row">{{ item.telephone_no }}</td>
                         <td scope="row">{{ item.education }}</td>
                         <td scope="row">
-                            <a href="{{ item.statement_evidence }}" target="_blank">Link</a>
+                            <a href="{{ item.statement_evidence }}" target="_blank">
+                                Link
+                            </a>
                         </td>
                         <td scope="row">{{ item.open_email }}</td>
                         <td scope="row">{{ item.remark }}</td>
                         <td scope="row">
-                            <button *ngIf="item.status !== 'cancel'" class="btn btn-danger" (click)="onSubmitCancel(item.id)">Cancel</button>
+                            <button class="btn btn-primary" [routerLink]="['/home/customers', item.id]">Edit</button>
                         </td>
                     </tr>
                 </tbody>

@@ -12,9 +12,9 @@
     </div>
 </div>
 
-<div class="card shadow mb-4" *ngIf="customers">
+<div class="card shadow mb-4">
     <div class="card-header py-3">
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="customers">
             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -25,7 +25,6 @@
                         <th scope="col">Mobile No.</th>
                         <th scope="col">Class</th>
                         <th scope="col">Slip</th>
-                        <th scope="col">Open email</th>
                         <th scope="col">Note</th>
                     </tr>
                 </thead>
@@ -40,8 +39,12 @@
                         <td scope="row">
                             <a href="{{ item.statement_evidence }}" target="_blank">Link</a>
                         </td>
-                        <td scope="row">{{ item.open_email }}</td>
                         <td scope="row">{{ item.remark }}</td>
+                    </tr>
+                    <tr *ngIf="!customers || customers.length === 0">
+                        <td colspan="8" class="no-data-box">
+                            <span>No data</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

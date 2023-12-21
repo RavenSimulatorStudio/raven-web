@@ -5,6 +5,7 @@ import { CustomersListComponent } from './customers-list/customers-list.componen
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PendingPaymentComponent } from './pending-payment/pending-payment.component';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -22,6 +23,11 @@ const routes: Routes = [
       { 
         path: 'customers/pending', 
         component: PendingPaymentComponent,
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: 'customers/:id', 
+        component: CustomerDetailComponent,
         canActivate: [AuthGuard]
       }
     ]

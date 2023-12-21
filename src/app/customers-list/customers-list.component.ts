@@ -4,7 +4,8 @@ import { CustomerService } from '../service/customer.service';
 import { LoadingService } from '../service/loading.service';
 import { DatetimeService } from '../utilities/datetime.service';
 import { ListService } from '../service/list.service';
-import Swal from 'sweetalert2';
+import { Sort } from '@angular/material/sort';
+import { SortService } from '../utilities/sort.service';
 
 @Component({
   selector: 'app-customers-list',
@@ -26,11 +27,14 @@ export class CustomersListComponent implements OnInit {
     status: 'cancel'
   }
 
+  sortedData!: Customer[];
+
   constructor(
     private customerService: CustomerService,
     private loadingService: LoadingService,
     private datetimeService: DatetimeService,
-    private listService: ListService
+    private listService: ListService,
+    private sortService: SortService
   ) { }
 
   ngOnInit(): void {
@@ -48,49 +52,26 @@ export class CustomersListComponent implements OnInit {
       this.customers.forEach(customer => {
         customer.timestamp = this.datetimeService.formatDateTime(customer.timestamp);
       });
+      this.sortedData = this.customers.slice();
 
       this.loadingService.hide();
     })
   }
 
-  onSubmitCancel(id: string) {
-    Swal.fire({
-      icon: 'info',
-      title: 'Confirm?',
-      confirmButtonText: "confirm",
-      showDenyButton: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.approveStatus.id = id
-        this.onConfirmCancel()
-      }
-    });
-  }
+  sortData(sort: Sort) {
+    const data = this.customers.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
 
-  onConfirmCancel() {
-    this.loadingService.show();
-    this.customerService.updateStatus(this.approveStatus).subscribe((res) => {
-      this.loadingService.hide();
-      if (res && res.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Cancel success'
-        }).then((result) => {
-          if (result.isConfirmed || result.isDismissed) {
-            this.ngOnInit();
-          }
-        });
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed',
-          text: 'Cancel failed'
-        }).then((result) => {
-          if (result.isConfirmed || result.isDismissed) {
-            this.ngOnInit();
-          }
-        });
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'timestamp':
+          return this.sortService.compareTimestamp(a.timestamp, b.timestamp, isAsc);
+        default:
+          return 0;
       }
     });
   }

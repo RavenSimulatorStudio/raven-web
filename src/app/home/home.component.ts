@@ -8,10 +8,18 @@ import { UserService } from '../service/user.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+
+  toggleFlag: boolean = false;
+  nickname!: string | null;
+
   constructor(
     private router: Router,
     private userService: UserService
   ) { }
+
+  ngOnInit() {
+    this.nickname = localStorage.getItem('nickname');
+  }
 
   navigateToChildPage1() {
     this.router.navigate(['/customers/list']);
@@ -19,5 +27,10 @@ export class HomeComponent {
 
   logout() {
     this.userService.logout()
+  }
+
+  toggle() {
+    console.log(this.toggleFlag)
+    this.toggleFlag = !this.toggleFlag;
   }
 }
