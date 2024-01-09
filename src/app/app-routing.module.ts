@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { PendingPaymentComponent } from './pending-payment/pending-payment.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { LecturersListComponent } from './lecturers-list/lecturers-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -28,6 +29,11 @@ const routes: Routes = [
       { 
         path: 'customers/:id', 
         component: CustomerDetailComponent,
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: 'lecturers/all', 
+        component: LecturersListComponent,
         canActivate: [AuthGuard]
       }
     ]

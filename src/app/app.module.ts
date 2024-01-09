@@ -12,8 +12,10 @@ import { LoadingComponent } from './loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { LecturersListComponent } from './lecturers-list/lecturers-list.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
     PendingPaymentComponent,
     LoadingComponent,
     LoginComponent,
-    CustomerDetailComponent
+    CustomerDetailComponent,
+    LecturersListComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatSortModule
+    MatSortModule,
+    TypeaheadModule.forRoot()
   ],
   providers: [
     CustomerService
