@@ -26,5 +26,4 @@ export interface Lecturer {
 export interface SearchLecturer {
     career: string;
     nickname: string;
-    productType: string;
 }

@@ -17,8 +17,7 @@ export class LecturersListComponent {
 
   searchLecturer: SearchLecturer = {
     career: '',
-    nickname: '',
-    productType: ''
+    nickname: ''
   }
 
   lecturers!: Lecturer[];

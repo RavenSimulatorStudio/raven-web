@@ -17,7 +17,6 @@ export class LecturerService {
       .set('path', 'lecturers')
       .set('career', searchData.career)
       .set('nickname', searchData.nickname)
-      .set('productType', searchData.productType)
       
     return this.http.get<ApiResponse<Lecturer[]>>(environment.apiUrl, { params });
   }
@@ -37,8 +36,6 @@ export class LecturerService {
       .set('remark', lecturer.remark)
       .set('performance', lecturer.performance)
       .set('grade', lecturer.grade)
-
-    console.log(params)
 
     return this.http.get<ApiResponse<Lecturer>>(environment.apiUrl, { params });
   }

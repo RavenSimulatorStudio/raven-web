@@ -22,18 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="productType">Product type</label>
-                        <div class="input-group">
-                            <select class="form-control" id="productType" name="productType" [(ngModel)]="searchLecturer.productType">
-                                <option value="">All</option>
-                                <option value="Try to be">Try to be</option>
-                                <option value="Inside">Inside</option>
-                              </select>
-                        </div>
-                    </div>
-                </div>
+                <div class="col"></div>
                 <div class="col"></div>
             </div>
             <div class="row">
@@ -75,7 +64,7 @@
                         </td>
                         <td scope="row">{{ item.remark }}</td>
                         <td scope="row">
-                            <button class="btn btn-primary" [routerLink]="['/home/lecturers', item.id]">Edit</button>
+                            <button class="btn btn-primary" [routerLink]="['/home/lecturers', item.id]">Detail</button>
                         </td>
                     </tr>
                     <tr *ngIf="sortedData.length >= 1">
