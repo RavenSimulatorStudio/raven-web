@@ -5,7 +5,8 @@ import { SortService } from '../utilities/sort.service';
 import { LoadingService } from '../service/loading.service';
 import { AutocompleteService } from '../service/autocomplete.service';
 import { Observable, Observer, Subject, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
-import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
+import { LecturerService } from '../service/lecturer.service';
+import { DatetimeService } from '../utilities/datetime.service';
 
 @Component({
   selector: 'app-lecturers-list',
@@ -27,7 +28,9 @@ export class LecturersListComponent {
   constructor(
     private loadingService: LoadingService,
     private sortService: SortService,
-    private autocompleteService: AutocompleteService
+    private autocompleteService: AutocompleteService,
+    private lecturerService: LecturerService,
+    private datetimeService: DatetimeService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +51,16 @@ export class LecturersListComponent {
   }
 
   onSubmitSearch() {
-    console.log(this.searchLecturer)
+    this.loadingService.show();
+    this.lecturerService.findAllLecturers(this.searchLecturer).subscribe((res) => {
+      this.lecturers = res.data
+      this.lecturers.forEach(lecturer => {
+        lecturer.timestamp = this.datetimeService.formatDateTime(lecturer.timestamp);
+      });
+      this.sortedData = this.lecturers.slice();
+
+      this.loadingService.hide();
+    })
   }
 
   sortData(sort: Sort) {

@@ -16,6 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { LecturersListComponent } from './lecturers-list/lecturers-list.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     LoadingComponent,
     LoginComponent,
     CustomerDetailComponent,
-    LecturersListComponent
+    LecturersListComponent,
+    LecturerDetailComponent
   ],
   imports: [
     BrowserModule,
