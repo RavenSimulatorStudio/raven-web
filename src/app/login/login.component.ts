@@ -38,7 +38,7 @@ export class LoginComponent {
         
         this.userService.saveToken(userToken.token, userToken.nickname);
   
-        this.router.navigate(['/home/customers/pending'])
+        this.router.navigate(['/customers/pending'])
       } else {
         Swal.fire({
           icon: 'error',
