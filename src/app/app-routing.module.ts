@@ -10,12 +10,12 @@ import { LecturersListComponent } from './lecturers-list/lecturers-list.componen
 import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   {   
-    path: 'home', 
+    path: '', 
     component: HomeComponent,
     canActivate: [AuthGuard],
+    runGuardsAndResolvers: 'always',
     children: [
       { 
         path: 'customers/all', 
@@ -47,7 +47,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

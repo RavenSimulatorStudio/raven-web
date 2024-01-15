@@ -81,7 +81,7 @@
                         <td scope="row">{{ item.open_email }}</td>
                         <td scope="row">{{ item.remark }}</td>
                         <td scope="row">
-                            <button class="btn btn-primary" [routerLink]="['/home/customers', item.id]">Edit</button>
+                            <button class="btn btn-primary" [routerLink]="['/customers', item.id]">Edit</button>
                         </td>
                     </tr>
                     <tr *ngIf="sortedData.length >= 1">
