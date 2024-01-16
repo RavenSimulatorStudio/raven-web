@@ -15,4 +15,13 @@ export class DatetimeService {
     return formattedDateTime;
   }
 
+  formatDateInfo(timestamp: string): string {
+    const date = new Date(timestamp);
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+    return formattedDate;
+  }
+
+  
 }

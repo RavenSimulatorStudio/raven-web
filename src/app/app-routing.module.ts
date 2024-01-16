@@ -8,6 +8,8 @@ import { PendingPaymentComponent } from './pending-payment/pending-payment.compo
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import { LecturersListComponent } from './lecturers-list/lecturers-list.component';
 import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.component';
+import { WorkshopListComponent } from './report/workshop-list/workshop-list.component';
+import { WorkshopDetailComponent } from './report/workshop-detail/workshop-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -40,6 +42,16 @@ const routes: Routes = [
       { 
         path: 'lecturers/:id', 
         component: LecturerDetailComponent,
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: 'report/workshops', 
+        component: WorkshopListComponent,
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: 'report/workshops/:workshopName', 
+        component: WorkshopDetailComponent,
         canActivate: [AuthGuard]
       }
     ]
