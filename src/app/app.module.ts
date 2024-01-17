@@ -17,6 +17,8 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
 import { LecturersListComponent } from './lecturers-list/lecturers-list.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.component';
+import { WorkshopListComponent } from './report/workshop-list/workshop-list.component';
+import { WorkshopDetailComponent } from './report/workshop-detail/workshop-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.compo
     LoginComponent,
     CustomerDetailComponent,
     LecturersListComponent,
-    LecturerDetailComponent
+    LecturerDetailComponent,
+    WorkshopListComponent,
+    WorkshopDetailComponent
   ],
   imports: [
     BrowserModule,

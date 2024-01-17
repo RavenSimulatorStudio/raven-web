@@ -1,0 +1,77 @@
+<h1 class="h3 mb-2 text-gray-800">Workshop report</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Search</h6>
+    </div>
+    <div class="card-body">
+        <form (submit)="onSubmitSearch()">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="workshop">Workshop</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="workshop" name="workshop" [(ngModel)]="searchWorkshop.workshop" [typeahead]="suggestion$" (typeaheadOnSelect)="typeAheadOnSelect($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <div class="input-group">
+                            <select class="form-control" id="status" name="status" [(ngModel)]="searchWorkshop.status">
+                                <option value="">All</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow mb-4" *ngIf="workshops">
+    <div class="card-header py-3">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Workshop</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Total participants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of workshops">
+                        <td scope="row">{{ item.workshop_name }}</td>
+                        <td scope="row">{{ item.workshop_date }}</td>
+                        <td scope="row">{{ item.status }}</td>
+                        <td scope="row">{{ item.total_customers }}</td>
+                        <td scope="row">
+                            <button class="btn btn-primary" [routerLink]="['/report/workshops', item.workshop_name]">Detail</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="workshops.length >= 1">
+                        <td colspan="10" class="no-data-box">
+                            <span>Total {{ workshops.length }}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!workshops || workshops.length === 0">
+                        <td colspan="10" class="no-data-box">
+                            <span>No data</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

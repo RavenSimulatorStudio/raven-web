@@ -19,4 +19,13 @@ export class AutocompleteService {
 
       return this.http.get<ApiResponse<string[]>>(environment.apiUrl, { params });
   }
+
+  getWorkshopsAutocompleteSuggestions(text: string): Observable<any> {
+    const lowercaseText = text.toLowerCase();
+    const params = new HttpParams()
+      .set('path', 'autocomplete/workshops')
+      .set('autocompleteInputText', lowercaseText);
+
+      return this.http.get<ApiResponse<string[]>>(environment.apiUrl, { params });
+  }
 }
