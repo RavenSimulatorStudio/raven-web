@@ -55,7 +55,7 @@ export class WorkshopDetailComponent {
           this.updateWorkshopInfo.push({
             id: chuckList[i][j].id,
             check_morning: chuckList[i][j].check_morning,
-            check_afternoon: chuckList[i][j].check_morning,
+            check_afternoon: chuckList[i][j].check_afternoon,
             remark: chuckList[i][j].remark
           })
         }
