@@ -7,7 +7,7 @@ import { CustomersListComponent } from './customers-list/customers-list.componen
 import { HomeComponent } from './home/home.component';
 import { PendingPaymentComponent } from './pending-payment/pending-payment.component';
 import { CustomerService } from './service/customer.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from './loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';

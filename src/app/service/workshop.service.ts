@@ -20,4 +20,12 @@ export class WorkshopService {
       
     return this.http.get<ApiResponse<Workshop[]>>(environment.apiUrl, { params });
   }
+
+  saveWorkshopInfo(payload: string): Observable<any> {
+    const params = new HttpParams()
+      .set('path', 'report/workshops/detail/update')
+      .set('payload', payload)
+      
+    return this.http.get<any>(environment.apiUrl, { params });
+  }
 }
