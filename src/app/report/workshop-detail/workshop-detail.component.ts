@@ -17,7 +17,7 @@ export class WorkshopDetailComponent {
   searchCustomer: SearchCustomer = {
     workshop: '',
     nickname: '',
-    status: ''
+    status: 'approved'
   }
   customers!: Customer[];
   customersOriginal!: Customer[];
