@@ -19,10 +19,9 @@ export class HomeComponent {
 
   ngOnInit() {
     this.nickname = localStorage.getItem('nickname');
-  }
-
-  navigateToChildPage1() {
-    this.router.navigate(['/customers/list']);
+    if(this.router.url === '/' || this.router.url === '') {
+      this.router.navigate(['/customers/pending']);
+    }
   }
 
   logout() {

@@ -15,6 +15,8 @@ export interface Customer {
     order_no: string;
     id: string;
     status: string;
+    check_morning: boolean;
+    check_afternoon: boolean;
 }
 
 export interface SearchCustomer {
