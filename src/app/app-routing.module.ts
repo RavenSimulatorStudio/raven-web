@@ -10,6 +10,7 @@ import { LecturersListComponent } from './lecturers-list/lecturers-list.componen
 import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.component';
 import { WorkshopListComponent } from './report/workshop-list/workshop-list.component';
 import { WorkshopDetailComponent } from './report/workshop-detail/workshop-detail.component';
+import { CertificateComponent } from './report/certificate/certificate.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -52,6 +53,11 @@ const routes: Routes = [
       { 
         path: 'report/workshops/:workshopName', 
         component: WorkshopDetailComponent,
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: 'report/certificate', 
+        component: CertificateComponent,
         canActivate: [AuthGuard]
       }
     ]

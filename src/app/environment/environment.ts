@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'https://script.google.com/macros/s/AKfycbxK83Vpt_mJ3fsrZlFvJD75dHVkJGlo7Urds8kVEfa2BcVKHNI_84Br8mPkp2PN7qQPsQ/exec'
+    apiUrl: 'https://script.google.com/macros/s/AKfycbwxpvbJMaKe_oANhA9erhicsqFDjLcu79acBThM_6ms_eWtfGpXPqH44Yrir0_Qz8e7cQ/exec'
 }

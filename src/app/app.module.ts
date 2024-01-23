@@ -19,6 +19,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { LecturerDetailComponent } from './lecturer-detail/lecturer-detail.component';
 import { WorkshopListComponent } from './report/workshop-list/workshop-list.component';
 import { WorkshopDetailComponent } from './report/workshop-detail/workshop-detail.component';
+import { CertificateComponent } from './report/certificate/certificate.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WorkshopDetailComponent } from './report/workshop-detail/workshop-detai
     LecturersListComponent,
     LecturerDetailComponent,
     WorkshopListComponent,
-    WorkshopDetailComponent
+    WorkshopDetailComponent,
+    CertificateComponent
   ],
   imports: [
     BrowserModule,
