@@ -7,6 +7,8 @@ import { NavigateService } from '../../utilities/navigate.service';
 import { UpdateWorkshopInfo } from '../../interface/workshop';
 import { WorkshopService } from '../../service/workshop.service';
 import Swal from 'sweetalert2';
+import { Sort } from '@angular/material/sort';
+import { SortService } from '../../utilities/sort.service';
 
 @Component({
   selector: 'app-workshop-detail',
@@ -23,13 +25,15 @@ export class WorkshopDetailComponent {
   customersOriginal!: Customer[];
   updateWorkshopInfo: UpdateWorkshopInfo[] = [];
   resultStatus: number[] = [];
+  sortedData!: Customer[];
 
   constructor(
     private route: ActivatedRoute,
     private loadingService: LoadingService,
     private customerService: CustomerService,
     public navigateService: NavigateService,
-    private workshopService: WorkshopService
+    private workshopService: WorkshopService,
+    private sortService: SortService
   ) { }
   
   ngOnInit(): void {
@@ -39,6 +43,7 @@ export class WorkshopDetailComponent {
       this.customerService.findAllCustomers(this.searchCustomer).subscribe((res) => {
         this.customers = res.data;
         this.customersOriginal = JSON.parse(JSON.stringify(this.customers));
+        this.sortedData = this.customers.slice();
         this.loadingService.hide();
       })
     });
@@ -107,5 +112,25 @@ export class WorkshopDetailComponent {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  sortData(sort: Sort) {
+    const data = this.customers.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return this.sortService.compareString(a.name_surname, b.name_surname, isAsc);
+        case 'nickname':
+          return this.sortService.compareString(a.nickname, b.nickname, isAsc);
+        default:
+          return 0;
+      }
+    });
   }
 }

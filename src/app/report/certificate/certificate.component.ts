@@ -5,6 +5,7 @@ import { ListService } from '../../service/list.service';
 import { WorkshopsListSearch } from '../../interface/common';
 import { CustomerService } from '../../service/customer.service';
 import Swal from 'sweetalert2';
+import { ZipService } from '../../utilities/zip.service';
 
 @Component({
   selector: 'app-certificate',
@@ -27,11 +28,13 @@ export class CertificateComponent {
 
   fileName: string | null = null;
   fileUploaded: boolean = false;
+  selectedImageFile: File = null as any;
 
   constructor(
     private loadingService: LoadingService,
     private listService: ListService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private zipService: ZipService
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +90,7 @@ export class CertificateComponent {
         } else {
           this.fileUploaded = true;
           this.fileName = file.name;
+          this.selectedImageFile = file;
         }
       });
 
@@ -96,7 +100,11 @@ export class CertificateComponent {
   }
 
   exportCertificate() {
-    
+    this.loadingService.show();
+    if (this.fileUploaded && this.selectedImageFile !== null) {
+      let content: string[] = this.customers.map(customer => customer.name_surname);
+      this.zipService.zipCertificateFile(content, this.selectedImageFile);
+    }
   }
 
   private resetFileInput(input: any, label: HTMLLabelElement) {

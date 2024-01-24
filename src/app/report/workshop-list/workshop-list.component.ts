@@ -6,6 +6,7 @@ import { WorkshopService } from '../../service/workshop.service';
 import { DatetimeService } from '../../utilities/datetime.service';
 import { Observable, Observer, debounceTime, of, switchMap } from 'rxjs';
 import { AutocompleteService } from '../../service/autocomplete.service';
+import { SortService } from '../../utilities/sort.service';
 
 @Component({
   selector: 'app-workshop-list',
@@ -19,12 +20,14 @@ export class WorkshopListComponent {
   }
   workshops!: Workshop[];
   suggestion$?: Observable<string[]>;
+  sortedData!: Workshop[];
 
   constructor(
     private loadingService: LoadingService,
     private workshopService: WorkshopService,
     private datetimeService: DatetimeService,
-    private autocompleteService: AutocompleteService
+    private autocompleteService: AutocompleteService,
+    private sortService: SortService
   ) {}
 
   ngOnInit(): void {
@@ -51,11 +54,30 @@ export class WorkshopListComponent {
       this.workshops.forEach(workshop => {
         workshop.workshop_date = this.datetimeService.formatDateInfo(workshop.workshop_date);
       });
+      this.sortedData = this.workshops.slice()
       this.loadingService.hide();
     })
   }
 
   typeAheadOnSelect(event: any) {
     this.searchWorkshop.workshop = event.item;
+  }
+
+  sortData(sort: Sort) {
+    const data = this.workshops.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'date':
+          return this.sortService.compareDate(a.workshop_date, b.workshop_date, isAsc);
+        default:
+          return 0;
+      }
+    });
   }
 }
