@@ -7,3 +7,8 @@ export interface ApiResponse<T> {
 export interface WorkshopsList {
     workshops: string[];
 }
+
+export interface WorkshopsListSearch {
+    workshop_status?: string;
+    certificate_flag?: boolean;
+}

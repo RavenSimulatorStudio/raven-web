@@ -6,6 +6,7 @@ import { DatetimeService } from '../utilities/datetime.service';
 import { ListService } from '../service/list.service';
 import { Sort } from '@angular/material/sort';
 import { SortService } from '../utilities/sort.service';
+import { WorkshopsListSearch } from '../interface/common';
 
 @Component({
   selector: 'app-customers-list',
