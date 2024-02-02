@@ -9,3 +9,8 @@
   text-align: left;
   font-weight: bold;
 }
+
+.page-item.active .page-link {
+  background-color: #4e73df;
+  color: #fff;
+}

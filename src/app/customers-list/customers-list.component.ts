@@ -6,7 +6,8 @@ import { DatetimeService } from '../utilities/datetime.service';
 import { ListService } from '../service/list.service';
 import { Sort } from '@angular/material/sort';
 import { SortService } from '../utilities/sort.service';
-import { WorkshopsListSearch } from '../interface/common';
+import { PaginationTemplate } from '../interface/common';
+import { PaginationService } from '../utilities/pagination.service';
 
 @Component({
   selector: 'app-customers-list',
@@ -29,13 +30,21 @@ export class CustomersListComponent implements OnInit {
   }
 
   sortedData!: Customer[];
+  paginationData!: Customer[];
+  paginationTemplate: PaginationTemplate = {
+    currentPage: 1,
+    itemsPerPage: 10,
+    totalItems: 0,
+    startIndex: 0
+  }
 
   constructor(
     private customerService: CustomerService,
     private loadingService: LoadingService,
     private datetimeService: DatetimeService,
     private listService: ListService,
-    private sortService: SortService
+    private sortService: SortService,
+    public paginationService: PaginationService
   ) { }
 
   ngOnInit(): void {
@@ -50,11 +59,12 @@ export class CustomersListComponent implements OnInit {
     this.loadingService.show();
     this.customerService.findAllCustomers(this.searchCustomer).subscribe((res) => {
       this.customers = res.data;
+      this.paginationTemplate.totalItems = this.customers.length;
       this.customers.forEach(customer => {
         customer.timestamp = this.datetimeService.formatDateTime(customer.timestamp);
       });
       this.sortedData = this.customers.slice();
-
+      this.updateSortedData();
       this.loadingService.hide();
     })
   }
@@ -62,10 +72,8 @@ export class CustomersListComponent implements OnInit {
   sortData(sort: Sort) {
     const data = this.customers.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
       return;
     }
-
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
@@ -75,5 +83,23 @@ export class CustomersListComponent implements OnInit {
           return 0;
       }
     });
+
+    this.paginationTemplate.startIndex = 0;
+    this.updateSortedData();
+  }
+
+  private updateSortedData() {
+    const endIndex = this.paginationTemplate.startIndex + this.paginationTemplate.itemsPerPage;
+    if (this.sortedData) {
+      this.paginationData = this.sortedData.slice(this.paginationTemplate.startIndex, endIndex);
+    } else {
+      this.paginationData = this.customers.slice(this.paginationTemplate.startIndex, endIndex);
+    }
+  }
+
+  pageChanged(page: number): void {
+    this.paginationTemplate.currentPage = page
+    this.paginationTemplate.startIndex = (this.paginationTemplate.currentPage - 1) * this.paginationTemplate.itemsPerPage;
+    this.updateSortedData();
   }
 }

@@ -7,6 +7,8 @@ import { AutocompleteService } from '../service/autocomplete.service';
 import { Observable, Observer, Subject, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 import { LecturerService } from '../service/lecturer.service';
 import { DatetimeService } from '../utilities/datetime.service';
+import { PaginationTemplate } from '../interface/common';
+import { PaginationService } from '../utilities/pagination.service';
 
 @Component({
   selector: 'app-lecturers-list',
@@ -22,14 +24,23 @@ export class LecturersListComponent {
 
   lecturers!: Lecturer[];
   sortedData!: Lecturer[];
+  paginationData!: Lecturer[];
   suggestion$?: Observable<string[]>;
+
+  paginationTemplate: PaginationTemplate = {
+    currentPage: 1,
+    itemsPerPage: 10,
+    totalItems: 0,
+    startIndex: 0
+  }
 
   constructor(
     private loadingService: LoadingService,
     private sortService: SortService,
     private autocompleteService: AutocompleteService,
     private lecturerService: LecturerService,
-    private datetimeService: DatetimeService
+    private datetimeService: DatetimeService,
+    public paginationService: PaginationService
   ) {}
 
   ngOnInit(): void {
@@ -53,11 +64,12 @@ export class LecturersListComponent {
     this.loadingService.show();
     this.lecturerService.findAllLecturers(this.searchLecturer).subscribe((res) => {
       this.lecturers = res.data
+      this.paginationTemplate.totalItems = this.lecturers.length;
       this.lecturers.forEach(lecturer => {
         lecturer.timestamp = this.datetimeService.formatDateTime(lecturer.timestamp);
       });
       this.sortedData = this.lecturers.slice();
-
+      this.updateSortedData();
       this.loadingService.hide();
     })
   }
@@ -65,7 +77,6 @@ export class LecturersListComponent {
   sortData(sort: Sort) {
     const data = this.lecturers.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
       return;
     }
 
@@ -78,9 +89,27 @@ export class LecturersListComponent {
           return 0;
       }
     });
+
+    this.paginationTemplate.startIndex = 0;
+    this.updateSortedData();
   }
 
   typeAheadOnSelect(event: any) {
     this.searchLecturer.career = event.item;
+  }
+
+  private updateSortedData() {
+    const endIndex = this.paginationTemplate.startIndex + this.paginationTemplate.itemsPerPage;
+    if (this.sortedData) {
+      this.paginationData = this.sortedData.slice(this.paginationTemplate.startIndex, endIndex);
+    } else {
+      this.paginationData = this.lecturers.slice(this.paginationTemplate.startIndex, endIndex);
+    }
+  }
+
+  pageChanged(page: number): void {
+    this.paginationTemplate.currentPage = page
+    this.paginationTemplate.startIndex = (this.paginationTemplate.currentPage - 1) * this.paginationTemplate.itemsPerPage;
+    this.updateSortedData();
   }
 }

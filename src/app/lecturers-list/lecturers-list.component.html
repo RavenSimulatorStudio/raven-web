@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of sortedData">
+                    <tr *ngFor="let item of paginationData">
                         <td scope="row">{{ item.email }}</td>
                         <td scope="row">{{ item.nickname }}</td>
                         <td scope="row">{{ item.career }}</td>
@@ -69,7 +69,7 @@
                     </tr>
                     <tr *ngIf="sortedData.length >= 1">
                         <td colspan="10" class="no-data-box">
-                            <span>Total {{ sortedData.length }}</span>
+                            <span>Total {{ paginationTemplate.totalItems }}</span>
                         </td>
                     </tr>
                     <tr *ngIf="!sortedData || sortedData.length === 0">
@@ -79,6 +79,19 @@
                     </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item" [class.disabled]="paginationTemplate.currentPage === 1">
+                    <a class="page-link" (click)="paginationTemplate.currentPage > 1 ? pageChanged(paginationTemplate.currentPage - 1) : null" tabindex="-1">Previous</a>
+                  </li>
+                  <li class="page-item" *ngFor="let page of paginationService.getPages(paginationTemplate.totalItems, paginationTemplate.itemsPerPage, paginationTemplate.currentPage)" [class.active]="page === paginationTemplate.currentPage">
+                    <a class="page-link" (click)="pageChanged(page)">{{ page === -1 ? '...' : page }}</a>
+                  </li>
+                  <li class="page-item" [class.disabled]="paginationTemplate.currentPage === paginationTemplate.totalItems / paginationTemplate.itemsPerPage">
+                    <a class="page-link" (click)="paginationTemplate.currentPage < paginationTemplate.totalItems / paginationTemplate.itemsPerPage ? pageChanged(paginationTemplate.currentPage + 1) : null">Next</a>
+                  </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
