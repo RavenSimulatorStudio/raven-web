@@ -16,10 +16,10 @@ export class ConfigService {
 
   private config: Config = {
     production: {
-      fontPath: '/assets/fonts/Pridi/Pridi Regular.ttf',
+      fontPath: '/assets/fonts/Pridi/Pridi-Regular.ttf',
     },
     development: {
-      fontPath: '../../assets/fonts/Pridi/Pridi Regular.ttf',
+      fontPath: '../../assets/fonts/Pridi/Pridi-Regular.ttf',
     },
   };
 
