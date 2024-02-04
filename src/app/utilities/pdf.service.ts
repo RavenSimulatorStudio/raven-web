@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import jsPDF from 'jspdf';
+import { ConfigService } from '../environment/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PdfService {
 
-  constructor() { }
+  constructor(
+    private configService: ConfigService
+  ) { }
 
   async generateCertificatePdf(content: string, fileName: string, imageFile: File): Promise<Blob> {
     let width = 2000
@@ -19,8 +22,8 @@ export class PdfService {
       [width, height]
     );
 
-    pdf.addFileToVFS('THSarabun.ttf', '../../assets/fonts/Pridi/Pridi Regular.ttf');
-    pdf.addFont('../../assets/fonts/Pridi/Pridi Regular.ttf', 'Pridi Regular', 'normal');
+    pdf.addFileToVFS('THSarabun.ttf', this.configService.getConfigValue('fontPath', isDevMode()));
+    pdf.addFont(this.configService.getConfigValue('fontPath', isDevMode()), 'Pridi Regular', 'normal');
     pdf.setFont('Pridi Regular');
     pdf.setFontSize(100);
     pdf.setTextColor(54, 77, 101);
