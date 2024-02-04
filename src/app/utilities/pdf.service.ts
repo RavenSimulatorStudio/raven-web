@@ -23,8 +23,8 @@ export class PdfService {
     );
 
     pdf.addFileToVFS('THSarabun.ttf', this.configService.getConfigValue('fontPath', isDevMode()));
-    pdf.addFont(this.configService.getConfigValue('fontPath', isDevMode()), 'Pridi Regular', 'normal');
-    pdf.setFont('Pridi Regular');
+    pdf.addFont(this.configService.getConfigValue('fontPath', isDevMode()), 'Pridi-Regular', 'normal');
+    pdf.setFont('Pridi-Regular');
     pdf.setFontSize(100);
     pdf.setTextColor(54, 77, 101);
 
