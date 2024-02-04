@@ -22,6 +22,7 @@ export class PdfService {
       [width, height]
     );
 
+    console.log(isDevMode())
     pdf.addFileToVFS('THSarabun.ttf', this.configService.getConfigValue('fontPath', isDevMode()));
     pdf.addFont(this.configService.getConfigValue('fontPath', isDevMode()), 'Pridi-Regular', 'normal');
     pdf.setFont('Pridi-Regular');
