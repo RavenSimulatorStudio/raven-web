@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 
 type Config = {
   production: {
@@ -23,8 +23,8 @@ export class ConfigService {
     },
   };
 
-  getConfigValue(variable: keyof Config['production'], isDevelopment: boolean): string {
-    const environment = isDevelopment ? 'development' : 'production';
+  getConfigValue(variable: keyof Config['production']): string {
+    const environment = isDevMode() ? 'development' : 'production';
     return this.config[environment][variable];
   }
 }
